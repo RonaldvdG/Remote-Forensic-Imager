@@ -2,6 +2,7 @@
 
 ### Variables
 workdir=/forensics
+username=fieldofficer
 
 clear
 
@@ -33,6 +34,6 @@ if [ ! -d "$workdir" ]; then
 	mkdir $workdir/scripts
 fi
 
-wget -P $workdir/scripts/ https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/basic-install.sh
-
-sudo sh $workdir/scripts/basic-install.sh
+clear
+echo "The user $username will be made, please enter the correct information below:"
+adduser $username
