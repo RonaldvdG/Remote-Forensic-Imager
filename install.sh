@@ -33,9 +33,9 @@ clear
 read -p "Please enter an username: " username
 echo "User '$username' will be made..."
 echo "Please fill in the information: \n"
-adduser $username
+#adduser $username
 
-usermod -aG sudo $username
+#usermod -aG sudo $username
 
 if [ ! -d "$workdir" ]; then
 	mkdir $workdir
