@@ -20,7 +20,8 @@ clear
 
 
 ### Menu
-echo "  Version        :       $version  \n
+echo "
+  Version        :       $version  \n
   Work Directory :       $workdir \n
   Username       :       $username \n
 \n
@@ -28,7 +29,8 @@ echo "  Version        :       $version  \n
 =       Welcome and thanks for using Remote Forensic Imager        = \n
 =       The required files will be downloaded and installed,       = \n
 =      please make sure that the device can reach the internet     = \n
-===================================================================="
+==================================================================== \n
+"
 
 sleep 2
 
