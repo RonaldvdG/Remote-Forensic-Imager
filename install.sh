@@ -5,9 +5,13 @@ workdir=/forensics/
 
 clear
 
-echo "In order to install everything correctly, the script will need root access."
-echo "Please enter the root password to continue..."
-sudo su
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+	echo "The script cannot be executed with the current user."
+	echo "Please run the script as root"
+	sleep 5
+	exit
+fi
+
 clear
 
 
