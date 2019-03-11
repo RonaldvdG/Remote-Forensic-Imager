@@ -25,7 +25,7 @@ echo "===================================================================="
 
 sleep 2
 
-apt update && apt upgrade -y && apt install curl -y
+apt update && apt upgrade -y && apt install wget -y
 	sleep 2
 
 if [ ! -d "$workdir" ]; then
