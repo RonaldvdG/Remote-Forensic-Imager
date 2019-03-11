@@ -20,15 +20,15 @@ clear
 
 
 ### Menu
-echo "  Version        :       $version "
-echo "  Work Directory :       $workdir "
-echo "  Username       :       $username "
-echo " "
-echo "===================================================================="
-echo "=       Welcome and thanks for using Remote Forensic Imager        ="
-echo "=       The required files will be downloaded and installed,       ="
-echo "=      please make sure that the device can reach the internet     ="
-echo "===================================================================="
+echo "  Version        :       $version  \n
+  Work Directory :       $workdir \n
+  Username       :       $username \n
+\n
+==================================================================== \n
+=       Welcome and thanks for using Remote Forensic Imager        = \n
+=       The required files will be downloaded and installed,       = \n
+=      please make sure that the device can reach the internet     = \n
+===================================================================="
 
 sleep 2
 
@@ -44,6 +44,7 @@ clear
 
 if id "$username" >/dev/null 2>&1; then
 	delluser $username
+	rm -R /home/$username
 fi
 
 echo -e "The user $username will be made, please enter the correct information below:"
