@@ -41,5 +41,10 @@ if [ ! -d "$workdir" ]; then
 fi
 
 clear
+
+if [ id -u $username > ]; then
+	deluser $username
+fi
+
 echo -e "The user $username will be made, please enter the correct information below:"
 adduser $username --gecos "Field Officer, NoRoom, NoPhone, NoPhone" --disabled-password
