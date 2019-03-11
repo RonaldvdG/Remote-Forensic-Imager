@@ -9,6 +9,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
 	echo "The script cannot be executed with the current user."
 	echo "Please run the script as root"
 	sleep 5
+	clear
 	exit
 fi
 
