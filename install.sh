@@ -20,7 +20,7 @@ clear
 
 
 ### Menu
-echo "
+MENU="
   Version        :       $version  \n
   Work Directory :       $workdir \n
   Username       :       $username \n
@@ -31,7 +31,7 @@ echo "
 =      please make sure that the device can reach the internet     = \n
 ==================================================================== \n
 "
-
+echo $MENU
 sleep 2
 
 apt update && apt upgrade -y && apt install wget -y
@@ -45,7 +45,7 @@ fi
 clear
 
 if id "$username" >/dev/null 2>&1; then
-	delluser $username
+	deluser $username
 	rm -R /home/$username
 fi
 
