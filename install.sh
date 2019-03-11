@@ -5,6 +5,11 @@ workdir=/forensics/
 
 clear
 
+echo "In order to install everything correctly, the script will need root access."
+echo "Please enter the root password to continue..."
+sudo su
+clear
+
 
 ### Menu
 echo "===================================================================="
