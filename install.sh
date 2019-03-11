@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### Variables
-workdir=/forensics/
+workdir=/forensics
 
 clear
 
