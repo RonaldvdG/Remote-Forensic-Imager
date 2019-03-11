@@ -28,24 +28,11 @@ sleep 2
 apt update && apt upgrade -y && apt install curl -y
 	sleep 2
 
-clear
-
-read -p "Please enter an username: " username
-
-echo "User '$username' will be made..."
-echo "Please fill in the information: \n"
-#adduser $username
-
-#usermod -aG sudo $username
-
 if [ ! -d "$workdir" ]; then
 	mkdir $workdir
+	mkdir $workdir/scripts
 fi
 
+wget -P $workdir/scripts/ https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/basic-installation.sh
 
-cd $workdir
-pwd
-
-#curl -sSL https://url | bash
-
-
+sudo sh $workdir/scripts/basic-installation.sh
