@@ -33,6 +33,6 @@ if [ ! -d "$workdir" ]; then
 	mkdir $workdir/scripts
 fi
 
-wget -P $workdir/scripts/ https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/basic-installation.sh
+wget -P $workdir/scripts/ https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/basic-install.sh
 
 sudo sh $workdir/scripts/basic-installation.sh
