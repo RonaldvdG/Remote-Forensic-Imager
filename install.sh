@@ -42,8 +42,8 @@ fi
 
 clear
 
-if [ id -u $username > ]; then
-	deluser $username
+if id "$username" >/dev/null 2>&1; then
+	delluser $username
 fi
 
 echo -e "The user $username will be made, please enter the correct information below:"
