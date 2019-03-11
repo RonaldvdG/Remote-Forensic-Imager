@@ -31,7 +31,7 @@ MENU="
 =      please make sure that the device can reach the internet     = \n
 ==================================================================== \n
 "
-echo $MENU
+echo -e $MENU
 sleep 2
 
 apt update && apt upgrade -y && apt install wget -y
