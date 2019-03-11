@@ -35,4 +35,4 @@ fi
 
 wget -P $workdir/scripts/ https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/basic-install.sh
 
-sudo sh $workdir/scripts/basic-installation.sh
+sudo sh $workdir/scripts/basic-install.sh
