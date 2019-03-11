@@ -1,5 +1,7 @@
 #!/bin/bash
 
+version="0.0.1 (beta)"
+
 ### Variables
 workdir=/forensics
 username=fieldofficer
@@ -18,6 +20,10 @@ clear
 
 
 ### Menu
+echo "  Version        :       $version "
+echo "  Work Directory :       $workdir "
+echo "  Username       :       $username "
+echo " "
 echo "===================================================================="
 echo "=       Welcome and thanks for using Remote Forensic Imager        ="
 echo "=       The required files will be downloaded and installed,       ="
@@ -35,5 +41,5 @@ if [ ! -d "$workdir" ]; then
 fi
 
 clear
-echo "The user $username will be made, please enter the correct information below:"
-adduser $username
+echo -e "The user $username will be made, please enter the correct information below:"
+adduser $username --gecos "Field Officer, NoRoom, NoPhone, NoPhone" --disabled-password
