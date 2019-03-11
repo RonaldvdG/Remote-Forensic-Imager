@@ -21,15 +21,15 @@ clear
 
 ### Menu
 MENU="
-  Version        :       $version  \n
-  Work Directory :       $workdir \n
-  Username       :       $username \n
-\n
-==================================================================== \n
-=       Welcome and thanks for using Remote Forensic Imager        = \n
-=       The required files will be downloaded and installed,       = \n
-=      please make sure that the device can reach the internet     = \n
-==================================================================== \n
+  Version        :       $version
+  Work Directory :       $workdir
+  Username       :       $username
+
+====================================================================
+=       Welcome and thanks for using Remote Forensic Imager        =
+=       The required files will be downloaded and installed,       =
+=      please make sure that the device can reach the internet     =
+====================================================================
 "
 echo -e $MENU
 sleep 2
