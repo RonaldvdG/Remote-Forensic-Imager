@@ -69,5 +69,4 @@ wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/s
 
 chown -R $username $workdir
 chgrp -R $username $workdir
-chmod 755 -R $workdiry
-
+chmod 755 -R $workdir
