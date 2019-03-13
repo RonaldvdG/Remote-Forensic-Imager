@@ -41,6 +41,10 @@ apt update && apt upgrade -y && apt install wget ewf-tools -y
 if [ ! -d "$workdir" ]; then
 	mkdir $workdir
 	mkdir $workdir/scripts
+
+else
+	rm -R $workdir
+
 fi
 
 clear
@@ -55,6 +59,7 @@ adduser $username --gecos "Field Officer, NoRoom, NoPhone, NoPhone" --disabled-p
 
 clear
 
+echo -e $MENU
 echo "Retrieving the necessary files: ..."
 sleep 2
 
@@ -64,5 +69,5 @@ wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/s
 
 chown -R $username $workdir
 chgrp -R $username $workdir
-chmod -R 755 $workdiry
+chmod 755 -R $workdiry
 
