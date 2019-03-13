@@ -20,17 +20,17 @@ clear
 
 
 ### Menu
-MENU="
-  Version        :       $version
-  Work Directory :       $workdir
-  Username       :       $username
-
-====================================================================
-|       Welcome and thanks for using Remote Forensic Imager        |
-|       The required files will be downloaded and installed,       |
-|      please make sure that the device can reach the internet     |
-====================================================================
- 
+MENU=" \n
+  Version        :       $version \n
+  Work Directory :       $workdir \n
+  Username       :       $username \n
+ \n
+==================================================================== \n
+|       Welcome and thanks for using Remote Forensic Imager        | \n
+|       The required files will be downloaded and installed,       | \n
+|      please make sure that the device can reach the internet     | \n
+==================================================================== \n
+  \n
 "
 echo -e $MENU
 sleep 2
@@ -61,3 +61,8 @@ sleep 2
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/diskinfo.sh -P $workdir/scripts/
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/ewfacquire.sh -P $workdir/scripts
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/start.sh -P $workdir/scripts
+
+chown -R $username $workdir
+chgrp -R $username $workdir
+chmod -R 755 $workdiry
+

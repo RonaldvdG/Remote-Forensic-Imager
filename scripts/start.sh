@@ -13,7 +13,7 @@ basic=" \n
  Username       :    $username \n
 \n
 "
-echo $basic
+echo -e $basic
 
 echo "Before the acquire can start, some information has to be \n filled in. Please fill in the following information: \n"
 
@@ -77,7 +77,7 @@ MENU=" \n
 \n
  Your selection: \c"
 
-echo $MENU
+echo -e $MENU
 
 read answer
 

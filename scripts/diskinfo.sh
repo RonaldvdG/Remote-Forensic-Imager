@@ -21,7 +21,7 @@ basic=" \n
 ============================================= \n
 \n
 "
-echo $basic
+echo -e $basic
 
 echo "Please make sure that no disk is attached to the device."
 echo "You have 20 seconds to remove any attached disks."
@@ -32,7 +32,7 @@ ls /dev/ | grep sd > before
 sleep 5
 
 clear
-echo $basic
+echo -e $basic
 echo "Please attach the acquired disk (donor disk) to the device."
 echo "After 20 seconds, the device will check for any attached device..."
 sleep 20
@@ -52,5 +52,5 @@ fi
 
 
 clear
-echo $basic
+echo -e $basic
 lsblk $donor
