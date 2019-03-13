@@ -70,3 +70,22 @@ wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/s
 chown -R $username $workdir
 chgrp -R $username $workdir
 chmod 755 -R $workdir
+
+read -p "Do you want $username to automatically login? (yes/no) " autologin
+
+if [ $autologin == "yes"  ]; then
+	cat >/etc/systemd/system/getty@tty1.service.d/override.conf <<EOL
+		[Service]
+		Type=simple
+		ExecStart=
+		ExecStart=-/sbin/agetty --autologin $username --noclear %I 38400 linux
+		EOL
+
+fi
+
+read -p "Do you want to autostart the acquisition procedure when logged in? (yes/no) " autostart
+
+if [ $autostart == "yes" ]; then
+
+
+fi
