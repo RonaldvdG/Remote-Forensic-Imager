@@ -54,3 +54,10 @@ echo -e "The user $username will be made, please enter the correct information b
 adduser $username --gecos "Field Officer, NoRoom, NoPhone, NoPhone" --disabled-password
 
 clear
+
+echo "Retrieving the necessary files: ..."
+sleep 2
+
+wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/diskinfo.sh -P $workdir/scripts/
+wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/ewfacquire.sh -P $workdir/scripts
+wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/start.sh -P $workdir/scripts
