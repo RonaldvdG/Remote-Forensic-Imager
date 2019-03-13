@@ -35,7 +35,7 @@ MENU="
 echo -e $MENU
 sleep 2
 
-apt update && apt upgrade -y && apt install wget -y
+apt update && apt upgrade -y && apt install wget ewf-tools -y
 	sleep 2
 
 if [ ! -d "$workdir" ]; then
