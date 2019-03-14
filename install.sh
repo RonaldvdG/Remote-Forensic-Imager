@@ -73,4 +73,9 @@ chown -R $username $workdir
 chgrp -R $username $workdir
 chmod 755 -R $workdir
 
-$workdir/scripts/autostart.sh
+
+clear
+echo -e $MENU
+echo "Congratulations, everything is downloaded. In order to start the next step, please enter the following line:"
+echo "'sudo $workdir/scripts/autostart.sh'"
+sleep 2
