@@ -63,6 +63,8 @@ fi
 ## End collecting information
 
 
+## 
+
 MENU=" \n
 ============================================= \n
 |       Remote Forensic Imager - Menu       | \n

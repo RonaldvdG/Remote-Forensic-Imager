@@ -41,6 +41,7 @@ apt update && apt upgrade -y && apt install wget ewf-tools -y
 if [ ! -d "$workdir" ]; then
 	mkdir $workdir
 	mkdir $workdir/scripts
+	mkdir $workdir/certificates
 
 else
 	rm -R $workdir
@@ -86,6 +87,12 @@ fi
 read -p "Do you want to autostart the acquisition procedure when logged in? (yes/no) " autostart
 
 if [ $autostart == "yes" ]; then
-
+	echo "" >> /home/$username/.profile
+	echo "bash $workdir/scripts/start.sh" >> /home/$username/.profile
 
 fi
+
+echo -e $MENU
+echo "Everything is done. Please put a public RSA certificate in the folder $workdir/certificates."
+echo "This public certificate will be used to encrypt a symmetric key which will be generated later on."
+sleep 5
