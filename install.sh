@@ -32,6 +32,12 @@ MENU=" \n
 ==================================================================== \n
   \n
 "
+
+echo "\e[31mBE AWARE!\e[0m"
+echo "This script will by default make the following user:"
+echo "\e[31m$username!\e[0m"
+echo "Also, the script will make \e[31m$workdir!\e[0m as an working directory."
+
 echo -e $MENU
 sleep 2
 
