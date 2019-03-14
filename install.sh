@@ -75,13 +75,7 @@ chmod 755 -R $workdir
 read -p "Do you want $username to automatically login? (yes/no) " autologin
 
 if [ $autologin == "yes"  ]; then
-	cat >/etc/systemd/system/getty@tty1.service.d/override.conf <<EOL
-		[Service]
-		Type=simple
-		ExecStart=
-		ExecStart=-/sbin/agetty --autologin $username --noclear %I 38400 linux
-		EOL
-
+	echo -e "[Service]\nType=simple\nExecStart=\nExecStart=-/sbin/agetty --autologin $username --noclear %I 38400 linux" > /etc/systemd/system/getty@tty1.service.d/override.conf
 fi
 
 read -p "Do you want to autostart the acquisition procedure when logged in? (yes/no) " autostart
