@@ -1,5 +1,7 @@
 #!/bin/bash
 
+workdir=/forensics
+
 read -p "Do you want root to automatically login? (yes/no) " autologin
 
 if [ $autologin == "yes" ]; then
