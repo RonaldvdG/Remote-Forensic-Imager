@@ -34,8 +34,6 @@ MENU=" \n
 "
 
 echo -e "\e[31mBE AWARE!\e[0m"
-echo -e "This script will by default make the following user:"
-echo -e "\e[31m$username!\e[0m"
 echo -e "Also, the script will make \e[31m$workdir!\e[0m as an working directory."
 
 echo -e $MENU
@@ -56,17 +54,6 @@ fi
 
 clear
 echo -e $MENU
-if id "$username" >/dev/null 2>&1; then
-	deluser $username
-	rm -R /home/$username
-fi
-
-echo -e "The user $username will be made, please enter the correct information below:"
-adduser $username --gecos "Field Officer, NoRoom, NoPhone, NoPhone" --disabled-password
-
-clear
-
-echo -e $MENU
 echo "Retrieving the necessary files: ..."
 sleep 2
 
@@ -74,11 +61,6 @@ wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/s
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/ewfacquire.sh -P $workdir/scripts
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/start.sh -P $workdir/scripts
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/autostart.sh -P $workdir/scripts
-
-chown -R $username $workdir
-chgrp -R $username $workdir
-chmod 755 -R $workdir
-
 
 clear
 echo -e $MENU
