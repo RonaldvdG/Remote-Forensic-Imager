@@ -13,6 +13,14 @@ basic=" \n
  Username       :    $username \n
 \n
 "
+
+### Changing the keyboard layout
+
+rm /etc/default/keyboard
+echo '# KEYBOARD CONFIGURATION FILE\n\n# Consult the keyboard(5) manual page\n\nXKBMODEL="pc105"\nXKBLAYOUT="us"\nXKBVARIANT=""\nXKBOPTIONS=""\n\nBACKSPACE="guess"' > /etc/default/keyboard
+
+###
+
 echo -e $basic
 
 echo -e "Before the acquire can start, some information has to be \n filled in. Please fill in the following information: \n"
@@ -22,8 +30,20 @@ echo -e "Before the acquire can start, some information has to be \n filled in. 
 read -p "What is your full name: " fullname
 read -p "What is the case number: " casenr
 read -p "What is the evidence number of the disk: " evidencenr
-read -p "What is the date (yyyy-mm-dd): " curdate
-read -p "What is the time (HH-MM): " curtime
+echo	"Is the following date correct?"
+date +%Y-%m-%d %H:%M
+read -p "(yes/no)" datecorrect
+
+if [ $datecorrect == "yes" ]
+then
+	echo " "
+
+elif [ $datecorrect == "no" ]
+	echo "Please fill in the correct date in the following way:"
+	echo "Year - Month - Day  Hour:Minute (yyyy-mm-dd HH:MM)"
+
+
+fi
 
 read -p "What is the harddisk vendor: " hddvendor
 read -p "what is the harddisk serial number: " hddserial
@@ -40,9 +60,7 @@ echo "The harddisk is made by $hddvendor. The serial number is \n"
 echo $hddserial
 echo "The harddisk model is: $hddmodel"
 
-read -p "Is the information above correct? (yes or no) " confirm
-
-echo $confirm
+read -p "Is the information above correct? (yes/no) " confirm
 
 if [ $confirm == "yes" ]
 then
