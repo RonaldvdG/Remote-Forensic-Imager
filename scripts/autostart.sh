@@ -16,7 +16,12 @@ if [ $autostart == "yes" ]; then
 
 fi
 
-echo -e $MENU
+echo "Make sure that, after this step, a public certificate is put in the folder $workdir/certificates/"
+echo "This public certificate will be used to encrypt a symmetric key."
+echo "The certificate must end with the syntax '_pub.pem'."
+sleep 2
+
+
 echo "Everything is done. Please put a public RSA certificate in the folder $workdir/certificates."
 echo "This public certificate will be used to encrypt a symmetric key which will be generated later on."
 sleep 5

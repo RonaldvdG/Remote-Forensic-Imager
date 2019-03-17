@@ -21,6 +21,16 @@ echo '# KEYBOARD CONFIGURATION FILE\n\n# Consult the keyboard(5) manual page\n\n
 
 ###
 
+if [ ! -f /forensics/certificates/*_pub.pem ];
+then
+	clear
+	echo -e "\e[31mNO PUBLIC CERTIFICATE DETECTED!!\e[0m"
+	echo "The acquisition cannot continue safely."
+	echo "Please deliver the acquired disk to a forensics technician."
+	sleep 15
+	exit
+fi
+
 echo -e $basic
 
 echo -e "Before the acquire can start, some information has to be \n filled in. Please fill in the following information: \n"
@@ -81,7 +91,11 @@ fi
 ## End collecting information
 
 
-## 
+## Generating symmetric key
+
+
+
+##
 
 MENU=" \n
 ============================================= \n
