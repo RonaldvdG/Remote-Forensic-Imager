@@ -2,6 +2,17 @@
 
 cd /forensics
 
+if [ ! -f ./symmetric.bin ]
+then
+	key=symmetric.bin
+
+else
+	echo -e "\e[31mNo symmetric key detected.\e[0m"
+	echo "The script to generate the symmetric key will be started."
+	/forensics/scripts/start.sh
+
+fi
+
 version="0.0.1 (beta)"
 workdir=$(pwd)
 username=$(whoami)
