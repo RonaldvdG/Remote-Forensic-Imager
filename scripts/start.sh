@@ -93,7 +93,21 @@ fi
 
 ## Generating symmetric key
 
+echo "A symmetric key will be generated"
+openssl rand -base64 32 > symmetric.bin
 
+if [ -f ./symmetric.bin ]
+then
+	echo "Great, symmetric key is generated."
+
+elif [ ! -f ./symmetric.bin ]
+	clear
+	echo -e "\e[31mNo symmetric key detected!\e[0m"
+	echo "Something must have gone wrong with generating the symmetric key."
+	echo "The device will restart itself to restart the process."
+	reboot
+
+fi
 
 ##
 
@@ -116,7 +130,7 @@ echo -e $MENU
 read answer
 
 case "$answer" in
-	1) echo " Whole disk acquisition" ;;
+	1) /forensics/scripts/acquisition.sh ;;
 	2) sudo sh $workdir/scripts/diskinfo.sh;;
 	q) exit ;;
 esac
