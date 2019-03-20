@@ -46,16 +46,10 @@ if [ ! -d "$workdir" ]; then
 	mkdir $workdir
 	mkdir $workdir/scripts
 	mkdir $workdir/certificates
-	mkdir $workdir/vars
-	mkdir $workdir/policedisk
 
 else
 	rm -R $workdir
-	mkdir $workdir
-	mkdir $workdir/scripts
-	mkdir $workdir/certificates
-	mkdir $workdir/vars
-	mkdir $workdir/policedisk
+
 fi
 
 clear
@@ -68,17 +62,7 @@ wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/s
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/start.sh -P $workdir/scripts/
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/autostart.sh -P $workdir/scripts/
 
-chmod -R +x $workdir/
-
-clear
-
-### Writing variables
-
-echo $workdir > /workdir
-
-###
-
-
+chmod -R +x $workdir/scriptsclear
 echo -e $MENU
 echo "Congratulations, everything is downloaded. In order to start the next step, please enter the following line:"
 echo "'sudo $workdir/scripts/autostart.sh'"
