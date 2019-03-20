@@ -43,7 +43,7 @@ read -p "What is your full name: " fullname
 read -p "What is the case number: " casenr
 read -p "What is the evidence number of the disk: " evidencenr
 echo	"Is the following date correct?"
-date +%Y-%m-%d %H:%M
+date +(%Y-%m-%d %H:%M)
 read -p "(yes/no)" datecorrect
 
 if [ $datecorrect == "yes" ]
@@ -53,8 +53,6 @@ then
 elif [ $datecorrect == "no" ]
 	echo "Please fill in the correct date in the following way:"
 	echo "Year - Month - Day  Hour:Minute (yyyy-mm-dd HH:MM)"
-
-
 fi
 
 read -p "What is the harddisk vendor: " hddvendor
