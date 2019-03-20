@@ -77,7 +77,6 @@ read -p "Is the information above correct? (yes/no) " confirm
 if [ $confirm == "yes" ]
 then
 	echo "The acquisition will continue"
-	echo
 	sleep 3
 
 elif [ $confirm == "no" ]
@@ -88,12 +87,21 @@ then
 else
 	echo "Please fill in 'yes' or 'no'."
 	echo "The process will be restarted."
-	exit
+	$workdir/scripts/start.sh
 fi
 
 ## End collecting information
 
+vardir=$workdir/vars
 
+echo $fullname > $vardir/fullname
+echo $casenr > $vardir/casenr
+echo $evidencenr > $vardir/evidencenr
+echo $hddvendor > $vardir/hddvendor
+echo $hddserial > $vardir/hddserial
+echo $hddmodel > $vardir/hddmodel
+
+mkdir $workdir/case$casenr
 
 ## Generating symmetric key
 
