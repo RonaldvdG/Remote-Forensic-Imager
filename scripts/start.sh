@@ -1,11 +1,13 @@
 #!/bin/bash
 
-cd /forensics
-
 version="0.0.1 (beta)"
-workdir=$(pwd)
+workdir=$(</workdir)
 username=$(whoami)
+
+cd $workdir
+
 clear
+
 
 basic=" \n
  Version        :    $version \n
@@ -75,6 +77,7 @@ read -p "Is the information above correct? (yes/no) " confirm
 if [ $confirm == "yes" ]
 then
 	echo "The acquisition will continue"
+	echo
 	sleep 3
 
 elif [ $confirm == "no" ]
@@ -89,6 +92,7 @@ else
 fi
 
 ## End collecting information
+
 
 
 ## Generating symmetric key

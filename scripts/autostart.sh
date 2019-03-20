@@ -2,6 +2,7 @@
 
 workdir=/forensics
 
+clear
 read -p "Do you want root to automatically login? (yes/no) " autologin
 
 if [ $autologin == "yes" ]; then
@@ -21,7 +22,7 @@ echo "This public certificate will be used to encrypt a symmetric key."
 echo "The certificate must end with the syntax '_pub.pem'."
 sleep 2
 
-
+echo " "
 echo "Everything is done. Please put a public RSA certificate in the folder $workdir/certificates."
 echo "This public certificate will be used to encrypt a symmetric key which will be generated later on."
 sleep 5

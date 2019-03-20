@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 cd /forensics
 
 if [ ! -f ./symmetric.bin ]
@@ -33,4 +35,21 @@ basic=" \n
 \n
 "
 echo -e $basic
+
+echo -e "Make sure that no disk is attached to the device!"
+
+ls /dev/ | grep sd > before
+
+sleep 5
+
+clear
+echo -e $basic
+echo "Please attach the acquired disk (donor disk) to the device."
+echo "After 20 seconds, the device will check for any attached device..."
+sleep 20
+
+ls /dev/ | grep sd > after
+HDD=$(diff -e before after | head -n 2 | tail -n 1)
+
+donor=/dev/$HDD
 

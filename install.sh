@@ -46,10 +46,14 @@ if [ ! -d "$workdir" ]; then
 	mkdir $workdir
 	mkdir $workdir/scripts
 	mkdir $workdir/certificates
+	mkdir $workdir/vars
 
 else
 	rm -R $workdir
-
+	mkdir $workdir
+	mkdir $workdir/scripts
+	mkdir $workdir/certificates
+	mkdir $workdir/vars
 fi
 
 clear
@@ -58,11 +62,21 @@ echo "Retrieving the necessary files: ..."
 sleep 2
 
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/diskinfo.sh -P $workdir/scripts/
-wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/ewfacquire.sh -P $workdir/scripts
-wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/start.sh -P $workdir/scripts
-wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/autostart.sh -P $workdir/scripts
+wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/ewfacquire.sh -P $workdir/scripts/
+wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/start.sh -P $workdir/scripts/
+wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/autostart.sh -P $workdir/scripts/
+
+chmod -R +x $workdir/
 
 clear
+
+### Writing variables
+
+echo $workdir > /workdir
+
+###
+
+
 echo -e $MENU
 echo "Congratulations, everything is downloaded. In order to start the next step, please enter the following line:"
 echo "'sudo $workdir/scripts/autostart.sh'"
