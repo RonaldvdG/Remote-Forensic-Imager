@@ -19,8 +19,8 @@ username=$(whoami)
 fullname=$(<$vardir/fullname)
 casenr=$(<$vardir/casenr)
 evidencenr=$(<$vardir/evidencenr)
-donor="\e[31mUnknown!\e[0m"
-target="\e[31mUnknown!\e[0m"
+acquireddisk="\e[31mUnknown!\e[0m"
+policedisk="\e[31mUnknown!\e[0m"
 clear
 
 basic=" \n
@@ -29,8 +29,8 @@ basic=" \n
  Username       :    $username \n
  Officer	:    $fullname \n
  Case number	:    $casenr \n
- Acquired Disk  :    $donor \n
- Police Disk    :    $target \n
+ Acquired Disk  :    $acquireddisk \n
+ Police Disk    :    $policedisk \n
 \n
 ============================================= \n
 |    Remote Forensic Imager - EWFAcquire    | \n
@@ -50,11 +50,14 @@ sleep 5
 clear
 echo -e $basic
 echo "Please attach the police disk to the device."
-echo "After 10 seconds, the device will check for the attached device..."
+echo "After 30 seconds, the device will check for the attached device..."
+sleep 10
 
 ls /dev/ | grep sd > between
+
 sleep 2
-policehdd=$(diff -e before between | head -n | tail -n 1)
+diff -e before between | head -n 2 | tail -n 1 > $vardir/policedisk
+policehdd=$(<$vardir/policedisk)
 
 echo "The following device is detected:"
 echo $policehdd
@@ -63,12 +66,14 @@ sleep 3
 clear
 echo -e $basic
 echo "Please attach the acquired disk to the device."
-echo "After 10 seconds, the device will check for any attached device..."
+echo "After 30 seconds, the device will check for any attached device..."
 sleep 10
 
 ls /dev/ | grep sd > after
-sleep2
-acquiredhdd=$(diff -e before after | head -n 2 | tail -n 1)
+
+sleep 2
+diff -e between after | head -n 2 | tail -n 1 > $vardir/acquireddisk
+acquiredhdd=$(<$vardir/acquireddisk)
 
 echo "The following device is detected:"
 echo $acquiredhdd
@@ -78,5 +83,6 @@ clear
 echo -e $basic
 echo "Now, these are the devices:"
 echo "The police HDD is: $policehdd"
+echo " "
 echo "The acquired HDD is: $acquiredhdd"
 sleep 10

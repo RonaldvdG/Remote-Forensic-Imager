@@ -8,7 +8,6 @@ cd $workdir
 
 clear
 
-
 basic=" \n
  Version        :    $version \n
  Work Directory :    $workdir \n
@@ -43,7 +42,7 @@ read -p "What is your full name: " fullname
 read -p "What is the case number: " casenr
 read -p "What is the evidence number of the disk: " evidencenr
 echo	"Is the following date correct?"
-date +(%Y-%m-%d %H:%M)
+date
 read -p "(yes/no)" datecorrect
 
 if [ $datecorrect == "yes" ]
@@ -51,8 +50,12 @@ then
 	echo " "
 
 elif [ $datecorrect == "no" ]
+then
 	echo "Please fill in the correct date in the following way:"
 	echo "Year - Month - Day  Hour:Minute (yyyy-mm-dd HH:MM)"
+else
+	echo "Please answer with 'yes' or 'no'"
+	read -p "Is the give date correct? (yes/no)" datecorrect
 fi
 
 read -p "What is the harddisk vendor: " hddvendor
@@ -66,7 +69,7 @@ echo "The case number is: $casenr"
 echo "The evidence number is: $evidencenr"
 echo "Today the date is: $curdate"
 echo "Time of acquisition is: $curtime"
-echo "The harddisk is made by $hddvendor. The serial number is \n"
+echo "The harddisk is made by $hddvendor. The serial number is"
 echo $hddserial
 echo "The harddisk model is: $hddmodel"
 
@@ -100,17 +103,19 @@ echo $hddserial > $vardir/hddserial
 echo $hddmodel > $vardir/hddmodel
 
 mkdir $workdir/case$casenr
+casedir=$workdir/case$casenr
 
 ## Generating symmetric key
 
 echo "A symmetric key will be generated"
-openssl rand -base64 32 > symmetric.bin
+openssl rand -base64 32 > $casedir/symmetric.bin
 
-if [ -f ./symmetric.bin ]
+if [ -f $casedir/symmetric.bin ]
 then
 	echo "Great, symmetric key is generated."
 
-elif [ ! -f ./symmetric.bin ]
+elif [ ! -f $casedir/symmetric.bin ]
+then
 	clear
 	echo -e "\e[31mNo symmetric key detected!\e[0m"
 	echo "Something must have gone wrong with generating the symmetric key."
@@ -140,8 +145,8 @@ echo -e $MENU
 read answer
 
 case "$answer" in
-	1) /forensics/scripts/acquisition.sh ;;
-	2) sudo sh $workdir/scripts/diskinfo.sh;;
+	1) bash $workdir/scripts/acquire.sh ;;
+	2) bash $workdir/scripts/diskinfo.sh ;;
 	q) exit ;;
 esac
 
