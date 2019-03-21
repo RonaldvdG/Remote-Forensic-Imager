@@ -34,7 +34,7 @@ fi
 
 echo -e $basic
 
-echo -e "Before the acquire can start, some information has to be \n filled in. Please fill in the following information: \n"
+echo -e "Before the acquisition can start, some information has to be \nfilled in. Please fill in the following information: \n"
 
 ## Start collecting information
 
@@ -43,7 +43,7 @@ read -p "What is the case number: " casenr
 read -p "What is the evidence number of the disk: " evidencenr
 echo	"Is the following date correct?"
 date
-read -p "(yes/no)" datecorrect
+read -p "(yes/no): " datecorrect
 
 if [ $datecorrect == "yes" ]
 then
@@ -111,6 +111,7 @@ casedir=$workdir/case$casenr
 
 echo "A symmetric key will be generated"
 openssl rand -base64 32 > $casedir/symmetric.bin
+sleep 2
 
 if [ -f $casedir/symmetric.bin ]
 then
@@ -142,13 +143,14 @@ MENU=" \n
 \n
  Your selection: \c"
 
-echo -e $MENU
+#echo -e $MENU
+#
+#read answer
+#
+#case "$answer" in
+#	1) bash $workdir/scripts/acquire.sh ;;
+#	2) bash $workdir/scripts/diskinfo.sh ;;
+#	q) exit ;;
+#esac
 
-read answer
-
-case "$answer" in
-	1) bash $workdir/scripts/acquire.sh ;;
-	2) bash $workdir/scripts/diskinfo.sh ;;
-	q) exit ;;
-esac
-
+$workdir/scripts/acquire.sh

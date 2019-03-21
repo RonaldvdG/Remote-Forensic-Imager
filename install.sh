@@ -39,7 +39,7 @@ echo -e "Also, the script will make \e[31m$workdir!\e[0m as an working directory
 echo -e $MENU
 sleep 2
 
-apt update && apt upgrade -y && apt install wget ewf-tools -y
+apt update && apt upgrade -y && apt install wget dc3dd -y
 	sleep 2
 
 if [ ! -d "$workdir" ]; then
