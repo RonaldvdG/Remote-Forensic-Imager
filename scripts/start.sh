@@ -22,7 +22,7 @@ echo '# KEYBOARD CONFIGURATION FILE\n\n# Consult the keyboard(5) manual page\n\n
 
 ###
 
-if [ ! -f /forensics/certificates/*_pub.pem ];
+if [ ! -f $workdir/certificates/*_pub.pem ];
 then
 	clear
 	echo -e "\e[31mNO PUBLIC CERTIFICATE DETECTED!!\e[0m"
@@ -101,6 +101,8 @@ echo $evidencenr > $vardir/evidencenr
 echo $hddvendor > $vardir/hddvendor
 echo $hddserial > $vardir/hddserial
 echo $hddmodel > $vardir/hddmodel
+echo $workdir/certificates/ > $vardir/certdir
+ls $workdir/certificates/ | grep _pub.pem | head -n 2 | tail -n 1 > $vardir/certificate
 
 mkdir $workdir/case$casenr
 casedir=$workdir/case$casenr

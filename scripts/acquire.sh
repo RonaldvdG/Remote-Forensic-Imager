@@ -5,6 +5,9 @@ workdir=$(</workdir)
 vardir=$workdir/vars
 username=$(whoami)
 fullname=$(<$vardir/fullname)
+certdir=$(<$vardir/certdir)
+certificate=$(<$vardir/certificate)
+certificate_loc=$($certdir$certificate)
 casenr=$(<$vardir/casenr)
 casedir=$workdir/case$casenr
 evidencenr=$(<$vardir/evidencenr)
@@ -14,7 +17,7 @@ policedisk="\e[31mUnknown!\e[0m"
 
 if [ ! -f $casedir/symmetric.bin ]
 then
-        key=symmetric.bin
+        symkey=symmetric.bin
 
 else
         echo -e "\e[31mNo symmetric key detected.\e[0m"
@@ -104,7 +107,7 @@ sleep 10
 clear
 echo -e $basic
 echo "The police disk will be mounted."
-mount /dev/$policehdd1 $policepoint
+mount /dev/$policehdd\1 $policepoint
 
 sleep 5
 
@@ -123,33 +126,34 @@ echo " "
 echo " "
 policedir=$policepoint/$casenr
 mkdir $policedir
+cd $policedir
 
 ### Beginning imaging
 
 # IMAGE COMMAND HERE
 # dc3dd if=/dev/sdb ssz=4096 cnt=2097152 hash=sha256 log=dc3dd_HDD_sha256.txt of=dc3dd_HDD.img
-# dc3dd if=/dev/sdb ssz=4096 cnt=2097152 hash=sha256 log=dc3dd_fast_compression1_sha256.txt | gzip -1 > dc3dd_fast_compression1.img.gz
+dc3dd if=$acquireddisk ssz=4096 cnt=2097152 hash=sha256 log=dc3dd_$casenr\_sha256.txt | gzip -1 > dc3dd_$casenr\_compressed.img.gz
 
 echo "============================================="
 echo "        Imaging the disk is completed        "
 echo "============================================="
 echo " "
 echo " "
-# HASHING OF IMAGE HERE
-# HASHING THE SYMMETRIC KEY HERE
-# sha256sum symmetric.bin > symmetric.bin.sha256
+
+sha256sum $symkey > symmetric.bin.sha256
 
 ### Encrypting the image
 
 # ENCRYPTING COMMAND HERE
-# openssl enc -aes-256-cbc -salt -in original/project_dc3dd_uncompressed.img -out encrypt/project_dc3dd_uncompressed.enc -pass file:keys/symmetric.bin
+
+openssl enc -aes-256-cbc -salt -in dc3dd_$casenr\_compressed.img.gz -out dc3dd_$casenr\_compressed.img.gz.enc -pass file:$symkey
+
 echo "============================================="
 echo "      Encrypting the image is completed      "
 echo "============================================="
 echo " "
 echo " "
-# HASHING OF ENCRYPTED IMAGE HERE
-# sha256sum ENCRYPTED.img
+sha256sum dc3dd_$casenr\_compressed.img.gz.enc > dc3dd_$casenr\_compressed.img.gz.enc.sha256
 
 
 # REMOVING THE UNENCRYPTED IMAGE
@@ -158,10 +162,10 @@ echo " "
 
 ### Encrypting the key and hash
 
-# ENCRYPT THE SYMMETRIC KEY HERE
-# openssl rsautl -encrypt -inkey case1234_pub.pem -pubin -in symmetric.bin -out ../encrypt/symmetric.enc
+# Below, encrypting the symmetric key
+openssl rsautl -encrypt -inkey $certificate_loc -pubin -in $symkey -out symmetric.bin.enc
 
-# ENCRYPT THE HASH HERE
+#
 # openssl rsautl -encrypt -inkey case1234_pub.pem -pubin -in symmetric.bin -out ../encrypt/symmetric.enc
 
 echo "============================================="
