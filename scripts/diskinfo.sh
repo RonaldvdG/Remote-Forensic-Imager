@@ -2,7 +2,7 @@
 
 cd /forensics
 
-version="0.0.1 (beta)"
+version="0.8 (beta)"
 workdir=$(pwd)
 username=$(whoami)
 donor="\e[31mUnknown!\e[0m"

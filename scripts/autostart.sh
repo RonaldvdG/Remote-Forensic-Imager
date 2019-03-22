@@ -23,7 +23,19 @@ echo "The certificate must end with the syntax '_pub.pem'."
 sleep 2
 
 echo " "
-echo "Everything is done. Please put a public RSA certificate in the folder $workdir/certificates."
-echo "This public certificate will be used to encrypt a symmetric key which will be generated later on."
+echo "Almost done. Just two things still need to be done:"
+echo -e "\n\n"
+
+echo "Frist,"
+echo "Put a public certificate in the folder $workdir/certificates "
+echo "This certificate needs to end with '_pub.pem' as filename."
+echo "This certificate will be used to encrypt the generated symmetric key."
+
+echo -e "\n\n"
+
+echo "Second,"
+echo "Put in the right server settings in the variables of the file $workdir/scripts/transfer.sh"
+echo "These variables will be used to transfer the data to the right server over SSH."
+
 sleep 5
 

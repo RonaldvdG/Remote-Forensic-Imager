@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="0.0.1 (beta)"
+version="0.8 (beta)"
 workdir=$(</workdir)
 vardir=$workdir/vars
 username=$(whoami)
@@ -28,7 +28,7 @@ then
         $workdir/scripts/start.sh
 
 else
-	symkey=symmetric.bin
+	symkey=$casedir/symmetric.bin
 
 fi
 
@@ -42,14 +42,14 @@ basic=" \n
  Police Disk    :    $policedisk \n
 \n
 ============================================= \n
-|    Remote Forensic Imager - EWFAcquire    | \n
+|     Remote Forensic Imager - Imaging      | \n
 ============================================= \n
 \n
 "
 echo -e $basic
 
 echo -e "In order to make a full acquisition, the right drives have to be detected."
-read -p "Press [ENTER] when neigther the police and the acquired disk is attached to the device."
+read -p "Press [ENTER] when neither the police and the acquired disk is attached to the device."
 sleep 5
 
 ls /dev/ | grep sd > before
@@ -75,7 +75,14 @@ echo $policedisk > $vardir/policedisk
 
 
 policepoint=$workdir/policedisk
-mkdir $policepoint
+
+if [ ! -d $policepoint ]
+then
+	mkdir $policepoint
+elif [ -d $policepoint ]
+then
+	echo "Mountpoint exists. Using the existing point"
+fi
 sleep 3
 
 clear
@@ -104,11 +111,14 @@ echo "The police HDD is: $policehdd"
 echo " "
 echo "The acquired HDD is: $acquiredhdd"
 echo " "
+
+read -p "Press [ENTER] if this information is correct. If not, restart the system."
+
 echo " "
 echo "The policedisk will be mounted at the following point:"
 echo "$policepoint"
 echo "Please do not remove the disks unless stated otherwise!"
-sleep 10
+sleep 5
 
 clear
 echo -e $basic
@@ -137,8 +147,7 @@ cd $policedir
 ### Beginning imaging
 
 # IMAGE COMMAND HERE
-# dc3dd if=/dev/sdb ssz=4096 cnt=2097152 hash=sha256 log=dc3dd_HDD_sha256.txt of=dc3dd_HDD.img
-dc3dd if=$acquireddisk ssz=4096 cnt=2097152 hash=sha256 log=dc3dd_$casenr.sha256.txt | gzip -1 > dc3dd_$casenr.compressed.img.gz
+dc3dd if=$acquireddisk ssz=4096 cnt=2097152 hash=sha256 log=dc3dd_$casenr.compressed.img.gz.sha256 | gzip -1 > dc3dd_$casenr.compressed.img.gz
 
 echo "============================================="
 echo "        Imaging the disk is completed        "
@@ -149,14 +158,22 @@ echo "Acquireddisk = $acquireddisk"
 echo "Shafile = dc3dd_$casenr.sha256.txt"
 echo "Gzip file = dc3dd_$casenr.compressed.img.gz"
 echo " "
-echo "Total: dc3dd if=$acquireddisk ssz=4096 cnt=2097152 hash=sha256 log=dc3dd_$casenr.sha256.txt | gzip -1 > dc3dd_$casenr.compressed.img.gz"
 
 sha256sum $symkey > symmetric.bin.sha256
-echo "sha256sum $symkey > symmetric.bin.sha256"
+
+echo "The imaging was successful, please remove the acquired disk."
+echo "This disk is no longer needed for the acquisition."
+echo "The policedisk needs to remain attached!"
+echo ""
+read -p "Press [ENTER] when the acquired disk is removed"
+
+
 ### Encrypting the image
 
 # ENCRYPTING COMMAND HERE
 
+echo "The image will now be encrypted. This will take a while."
+echo "Please wait.."
 openssl enc -aes-256-cbc -salt -in dc3dd_$casenr.compressed.img.gz -out dc3dd_$casenr.compressed.img.gz.enc -pass file:$symkey
 
 echo "============================================="
@@ -168,14 +185,11 @@ echo "Inputfile = dc3dd_$casenr.compressed.img.gz"
 echo "Outputfile = dc3dd_$casenr.compressed.img.gz.enc"
 echo "Key = file:$symkey"
 echo " "
-echo "Total: openssl enc -aes-256-cbc -salt -in dc3dd_$casenr.compressed.img.gz -out dc3dd_$casenr.compressed.img.gz.enc -pass file:$symkey"
 
-sha256sum dc3dd_$casenr\_compressed.img.gz.enc > dc3dd_$casenr\_compressed.img.gz.enc.sha256
-echo "sha256sum dc3dd_$casenr.compressed.img.gz.enc > dc3dd_$casenr.compressed.img.gz.enc.sha256"
+sha256sum dc3dd_$casenr.compressed.img.gz.enc > dc3dd_$casenr.compressed.img.gz.enc.sha256
 
 # REMOVING THE UNENCRYPTED IMAGE
 # rm unencrypted.img
-
 
 ### Encrypting the key and hash
 
@@ -194,10 +208,14 @@ echo "Inkey = $certificate_loc"
 echo "Pubin = $symkey"
 echo "Output = symmetric.bin.enc"
 echo " "
-echo "Total: openssl rsautl -encrypt -inkey $certificate_loc -pubin -in $symkey -out symmetric.bin.enc"
 
-# REMOVE THE UNENCRYPTED SYMMETRIC KEY HERE
-# REMOVE THE UNENCRYPTED HASH HERE
+### Removing the unencrypted files
+echo "============================================="
+echo "        Removing the unencrypted files       "
+echo "============================================="
+
+rm -r $workdir/after $workdir/before $workdir/between $workdir/$casenr
 
 ### Begin script for sending the files over the network
+
 $workdir/scripts/transfer.sh

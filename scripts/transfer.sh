@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="0.0.1 (beta)"
+version="0.8 (beta)"
 workdir=$(</workdir)
 vardir=$workdir/vars
 username=$(whoami)
@@ -37,9 +37,11 @@ basic=" \n
 echo -e $basic
 
 echo "The following files will be tranferred:"
-
-
+ls $workdir/policedisk/$casenr/
 echo -e "\n\n"
 echo "The files will be transferred to the server '$remserver'."
 echo "Connection with the server will be made with user '$remuser'."
 echo "The files will be stored in the folder '$remfolder'"
+echo " "
+echo "This process will take a while:"
+scp -r $workdir/policedisk $remuser@$remserver:$remfolder

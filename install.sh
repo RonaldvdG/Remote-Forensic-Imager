@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="0.0.1 (beta)"
+version="0.8 (beta)"
 
 ### Variables
 workdir=/forensics
@@ -64,9 +64,10 @@ echo "Retrieving the necessary files: ..."
 sleep 2
 
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/diskinfo.sh -P $workdir/scripts/
-wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/ewfacquire.sh -P $workdir/scripts/
+wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/acquire.sh -P $workdir/scripts/
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/start.sh -P $workdir/scripts/
 wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/autostart.sh -P $workdir/scripts/
+wget https://raw.githubusercontent.com/RonaldvdG/Remote-Forensic-Imager/master/scripts/transfer.sh -P $workdir/scripts/
 
 chmod -R +x $workdir/
 

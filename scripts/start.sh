@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="0.0.1 (beta)"
+version="0.8 (beta)"
 workdir=$(</workdir)
 username=$(whoami)
 
@@ -48,11 +48,14 @@ read -p "(yes/no): " datecorrect
 if [ $datecorrect == "yes" ]
 then
 	echo " "
+	curdate=$(date +%Y-%m-%d)
+	curtime=$(date +%H:%M)
 
 elif [ $datecorrect == "no" ]
 then
 	echo "Please fill in the correct date in the following way:"
-	echo "Year - Month - Day  Hour:Minute (yyyy-mm-dd HH:MM)"
+	read -p "The date is (yyyy-mm-dd)" curdate
+	read -p "The time is (hh:mm) (in 24H notation)" curtime
 else
 	echo "Please answer with 'yes' or 'no'"
 	read -p "Is the give date correct? (yes/no)" datecorrect
@@ -77,7 +80,7 @@ read -p "Is the information above correct? (yes/no) " confirm
 
 if [ $confirm == "yes" ]
 then
-	echo "The acquisition will continue"
+	echo "The acquisition will start"
 	sleep 3
 
 elif [ $confirm == "no" ]
@@ -127,30 +130,5 @@ then
 
 fi
 
-##
-
-MENU=" \n
-============================================= \n
-|       Remote Forensic Imager - Menu       | \n
-============================================= \n
-|          Please make a selection:         | \n
-|                                           | \n
-|  1 - Acquire the whole disk               | \n
-|  2 - See disk information                 | \n
-|                                           | \n
-|  q - Press 'q' to stop the acquisition    | \n
-============================================= \n
-\n
- Your selection: \c"
-
-#echo -e $MENU
-#
-#read answer
-#
-#case "$answer" in
-#	1) bash $workdir/scripts/acquire.sh ;;
-#	2) bash $workdir/scripts/diskinfo.sh ;;
-#	q) exit ;;
-#esac
 
 $workdir/scripts/acquire.sh
