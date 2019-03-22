@@ -105,11 +105,35 @@ echo $evidencenr > $vardir/evidencenr
 echo $hddvendor > $vardir/hddvendor
 echo $hddserial > $vardir/hddserial
 echo $hddmodel > $vardir/hddmodel
+echo $curdate > $vardir/curdate
+echo $curtime > $vardir/curtime
 echo $workdir/certificates/ > $vardir/certdir
 ls $workdir/certificates/ | grep _pub.pem | head -n 2 | tail -n 1 > $vardir/certificate
 
 mkdir $workdir/case$casenr
 casedir=$workdir/case$casenr
+
+### Beginning Chain of Evidence
+
+coe="Chain of Evidence for case: $casenr \n
+############################################# \n
+\n
+Responsible officer: $fullname \n
+Case: $casenr \n
+Evidence number: $evidencenr \n
+Acquisition initiated: $curdate $curtime \n
+\n
+#### HDD INFO #### \n
+\n
+HDD Vendor: $hddvendor \n
+HDD Serial: $hddserial \n
+HDD Model: $hddmodel \n
+\n
+"
+
+echo -e $coe > $casedir/Chain_of_Evidence.txt
+
+### Ending Chain of Evidence for start.sh
 
 ## Generating symmetric key
 
