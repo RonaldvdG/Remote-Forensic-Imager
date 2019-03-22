@@ -48,7 +48,7 @@ echo "This process will take a while:"
 files=$(<$vardir/files)
 
 date_start_trans=$(date +%Y-%m-%d && date +%H:%M:%S)
-scp -r $workdir/policedisk $remuser@$remserver:$remfolder
+scp -r $workdir/policedisk/$casenr $remuser@$remserver:$remfolder
 date_stop_trans=$(date +%Y-%m-%d && date +%H:%M:%S)
 
 ### Beginning Chain of Evidence
@@ -58,15 +58,17 @@ coe="###### Transportation part starts here ###### \n
 The following files were transported: \n
 $files \n
 \n \n
-The transportation started at: $date_start_trans
-The transportation was finished at: $date_stop_trans
+The transportation started at: $date_start_trans \n
+The transportation was finished at: $date_stop_trans \n
 \n
 "
 
 echo -e $coe >> $casedir/Chain_of_Evidence.txt
 
 sha256sum $casedir/Chain_of_Evidence.txt > $casedir/Chain_of_Evidence.txt.sha256
-scp $casedir/Chain_of_Evidence* $remuser@$remserver:$remfolder
+scp $casedir/Chain_of_Evidence* $remuser@$remserver:$remfolder/$casenr
+
+rm -r $workdir/case$casenr
 
 ### Ending Chain of Evidence for acquire.sh
 

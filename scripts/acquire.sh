@@ -182,6 +182,7 @@ date_start_enc=$(date +%Y-%m-%d && date +%H:%M:%S)
 openssl enc -aes-256-cbc -salt -in dc3dd_$casenr.compressed.img.gz -out dc3dd_$casenr.compressed.img.gz.enc -pass file:$symkey
 date_stop_enc=$(date +%Y-%m-%d && date +%H:%M:%S)
 
+echo " "
 echo "============================================="
 echo "      Encrypting the image is completed      "
 echo "============================================="
@@ -225,7 +226,8 @@ rm -r $workdir/after $workdir/before $workdir/between $workdir/$casenr $policepo
 
 ### Beginning Chain of Evidence
 
-coe="###### Acquisition part starts here ###### \n
+coe="###### Acquisition part starts here ###### \n 
+\n
 The policedisk was: /dev/$policehdd \n
 The policedisk was connected at: $date_pol_conn \n
 \n
@@ -240,12 +242,16 @@ Encrypting the image was started at: $date_start_enc \n
 Encrypting the image was done at: $date_stop_enc \n
 \n
 The unencrypted files are removed at: $date_rm_info \n
+\n \n \n
+####################################################### \n
+End of Chain of Evidence for case: $casenr \n
 "
 
 echo -e $coe >> $casedir/Chain_of_Evidence.txt
 
 ### Ending Chain of Evidence for acquire.sh
 
+sleep 3
 ### Begin script for sending the files over the network
 
 $workdir/scripts/transfer.sh
