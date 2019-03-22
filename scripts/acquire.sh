@@ -214,7 +214,7 @@ echo "============================================="
 echo "        Removing the unencrypted files       "
 echo "============================================="
 
-rm -r $workdir/after $workdir/before $workdir/between $workdir/$casenr
+rm -r $workdir/after $workdir/before $workdir/between $workdir/$casenr $policepoint/$casenr/dc3dd_$casenr.compressed.img.gz
 
 ### Begin script for sending the files over the network
 

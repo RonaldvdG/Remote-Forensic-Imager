@@ -26,7 +26,7 @@ echo " "
 echo "Almost done. Just two things still need to be done:"
 echo -e "\n\n"
 
-echo "Frist,"
+echo "First,"
 echo "Put a public certificate in the folder $workdir/certificates "
 echo "This certificate needs to end with '_pub.pem' as filename."
 echo "This certificate will be used to encrypt the generated symmetric key."
