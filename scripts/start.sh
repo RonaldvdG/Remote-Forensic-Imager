@@ -72,7 +72,8 @@ echo "The case number is: $casenr"
 echo "The evidence number is: $evidencenr"
 echo "Today the date is: $curdate"
 echo "Time of acquisition is: $curtime"
-echo "The harddisk is made by $hddvendor. The serial number is"
+echo "The harddisk is made by $hddvendor."
+echo "The serial number is:"
 echo $hddserial
 echo "The harddisk model is: $hddmodel"
 
