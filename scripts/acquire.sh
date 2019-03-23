@@ -14,6 +14,11 @@ evidencenr=$(<$vardir/evidencenr)
 acquireddisk="\e[31mUnknown!\e[0m"
 policedisk="\e[31mUnknown!\e[0m"
 
+red=\e[31m
+green=\e[32m
+blink=\e[5m
+underline=\e[4m
+ec=\e[0m
 
 clear
 
@@ -58,8 +63,8 @@ sleep 5
 
 clear
 echo -e $basic
-echo "Please attach the police disk to the device."
-read -p "Press [ENTER] when the police disk is attached to the device."
+echo "Please attach the $underline police $ec disk to the device."
+read -p "Press [ENTER] when the $underline police $ec disk is attached to the device."
 date_pol_conn=$(date +%Y-%m-%d && date +%H:%M:%S)
 sleep 5
 
@@ -88,8 +93,8 @@ sleep 3
 
 clear
 echo -e $basic
-echo "Please attach the acquired disk to the device."
-read -p "Press [ENTER] when the acquired disk is attached to the device."
+echo "Please attach the $underline acquired $ec disk to the device."
+read -p "Press [ENTER] when the $underline acquired $ec disk is attached to the device."
 date_acq_conn=$(date +%Y-%m-%d && date +%H:%M:%S)
 sleep 5
 
@@ -109,9 +114,9 @@ sleep 3
 clear
 echo -e $basic
 echo "Now, these are the devices:"
-echo "The police HDD is: $policehdd"
+echo "The police HDD is: $green $policehdd $ec"
 echo " "
-echo "The acquired HDD is: $acquiredhdd"
+echo "The acquired HDD is: $green $acquiredhdd $ec"
 echo " "
 
 read -p "Press [ENTER] if this information is correct. If not, restart the system."
@@ -137,7 +142,7 @@ echo "When this process is done, you will be notified."
 sleep 5
 
 clear
-echo -e "\e[31mPlease do not turn off the device and do not press any key!\e[0m"
+echo -e "\e[31mPlease $underline do not turn off the device $ec and do not press any key!\e[0m"
 echo "The acquisition is in process. You will be notified when the acquisition is done."
 echo "Until then, please do not interrupt the device."
 echo " "
@@ -149,6 +154,9 @@ cd $policedir
 ### Beginning imaging
 
 # IMAGE COMMAND HERE
+echo "The imaging process is started."
+echo "Please wait..."
+echo "$blink ... $ec"
 date_start_img=$(date +%Y-%m-%d && date +%H:%M:%S)
 dc3dd if=$acquireddisk ssz=4096 cnt=2097152 hash=sha256 log=dc3dd_$casenr.compressed.img.gz.sha256 | gzip -1 > dc3dd_$casenr.compressed.img.gz
 date_stop_img=$(date +%Y-%m-%d && date +%H:%M:%S)
@@ -165,7 +173,7 @@ echo " "
 
 sha256sum $symkey > symmetric.bin.sha256
 
-echo "The imaging was successful, please remove the acquired disk."
+echo "The imaging was successful, please remove the $green acquired disk $ec."
 echo "This disk is no longer needed for the acquisition."
 echo "The policedisk needs to remain attached!"
 echo ""
@@ -177,7 +185,8 @@ date_acq_disconn=$(date +%Y-%m-%d && date +%H:%M:%S)
 # ENCRYPTING COMMAND HERE
 echo " "
 echo "The image will now be encrypted. This will take a while."
-echo "Please wait.."
+echo "Please wait..."
+echo "$blink ... $ec"
 date_start_enc=$(date +%Y-%m-%d && date +%H:%M:%S)
 openssl enc -aes-256-cbc -salt -in dc3dd_$casenr.compressed.img.gz -out dc3dd_$casenr.compressed.img.gz.enc -pass file:$symkey
 date_stop_enc=$(date +%Y-%m-%d && date +%H:%M:%S)
@@ -192,7 +201,8 @@ echo "Inputfile = dc3dd_$casenr.compressed.img.gz"
 echo "Outputfile = dc3dd_$casenr.compressed.img.gz.enc"
 echo "Key = file:$symkey"
 echo " "
-echo "Now, a calculation of integrity will be made. This also will take a few moments..."
+echo "Now, a calculation for integrity will be made. This also will take a few moments..."
+echo "$blink ... $ec"
 sha256sum dc3dd_$casenr.compressed.img.gz.enc > dc3dd_$casenr.compressed.img.gz.enc.sha256
 
 # REMOVING THE UNENCRYPTED IMAGE

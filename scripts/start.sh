@@ -4,6 +4,12 @@ version="0.8 (beta)"
 workdir=$(</workdir)
 username=$(whoami)
 
+red=\e[31m
+green=\e[32m
+blink=\e[5m
+underline=\e[4m
+ec=\e[0m
+
 cd $workdir
 
 clear
@@ -67,15 +73,15 @@ read -p "what is the harddisk model: " hddmodel
 
 echo "Please verify the information: "
 
-echo "Your name is: $fullname"
-echo "The case number is: $casenr"
-echo "The evidence number is: $evidencenr"
-echo "Today the date is: $curdate"
-echo "Time of acquisition is: $curtime"
-echo "The harddisk is made by $hddvendor."
+echo "Your name is: $geen $fullname$ec"
+echo "The case number is: $green $casenr $ec"
+echo "The evidence number is: $green $evidencenr $ec"
+echo "Today the date is: $green $curdate $ec"
+echo "Time of acquisition is: $green $curtime $ec"
+echo "The harddisk is made by $green $hddvendor $ec."
 echo "The serial number is:"
-echo $hddserial
-echo "The harddisk model is: $hddmodel"
+echo $green $hddserial $ec
+echo "The harddisk model is: $green $hddmodel $ec"
 
 read -p "Is the information above correct? (yes/no) " confirm
 
