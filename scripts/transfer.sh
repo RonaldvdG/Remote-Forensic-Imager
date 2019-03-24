@@ -38,6 +38,7 @@ echo -e $basic
 
 echo "The following files will be tranferred:"
 ls $workdir/policedisk/$casenr/ > $vardir/files
+ls $workdir/policedisk/$casenr/
 echo -e "\n\n"
 echo "The files will be transferred to the server '$remserver'."
 echo "Connection with the server will be made with user '$remuser'."
