@@ -196,6 +196,11 @@ date_start_enc=$(date +%Y-%m-%d && date +%H:%M:%S)
 openssl enc -aes-256-cbc -salt -in dc3dd_$casenr.compressed.img.gz -out dc3dd_$casenr.compressed.img.gz.enc -pass file:$symkey
 date_stop_enc=$(date +%Y-%m-%d && date +%H:%M:%S)
 
+
+echo -e $basic
+echo -e "$red Please $underline do not turn off the device $ec$red and do not press any key! $ec"
+echo "The acquisition is in process. You will be notified when the acquisition is done."
+echo "Until then, please do not interrupt the device."
 echo " "
 echo "============================================="
 echo "      Encrypting the image is completed      "
