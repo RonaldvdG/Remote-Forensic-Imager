@@ -142,6 +142,7 @@ echo "When this process is done, you will be notified."
 sleep 5
 
 clear
+echo -e $basic
 echo -e "$red Please $underline do not turn off the device $ec$red and do not press any key! $ec"
 echo "The acquisition is in process. You will be notified when the acquisition is done."
 echo "Until then, please do not interrupt the device."
@@ -183,6 +184,10 @@ date_acq_disconn=$(date +%Y-%m-%d && date +%H:%M:%S)
 ### Encrypting the image
 
 # ENCRYPTING COMMAND HERE
+echo -e $basic
+echo -e "$red Please $underline do not turn off the device $ec$red and do not press any key! $ec"
+echo "The acquisition is in process. You will be notified when the acquisition is done."
+echo "Until then, please do not interrupt the device."
 echo " "
 echo "The image will now be encrypted. This will take a while."
 echo "Please wait..."
@@ -236,7 +241,7 @@ rm -r $workdir/after $workdir/before $workdir/between $casedir $policepoint/$cas
 
 ### Beginning Chain of Evidence
 
-coe="###### Acquisition part starts here ###### \n 
+coe="###### Acquisition part starts here ###### \n
 \n
 The policedisk was: /dev/$policehdd \n
 The policedisk was connected at: $date_pol_conn \n
