@@ -14,9 +14,9 @@ evidencenr=$(<$vardir/evidencenr)
 acquireddisk=$(<$vardir/acquireddisk)
 policedisk=$(<$vardir/policedisk)
 
-remserver=145.100.104.173
-remuser=rgaag
-remfolder=/large/frank/demo/
+remserver=1.2.3.4
+remuser=username
+remfolder=/forensicsfolder/
 
 clear
 
@@ -69,7 +69,7 @@ echo -e $coe >> $casedir/Chain_of_Evidence.txt
 sha256sum $casedir/Chain_of_Evidence.txt > $casedir/Chain_of_Evidence.txt.sha256
 scp $casedir/Chain_of_Evidence* $remuser@$remserver:$remfolder/$casenr
 
-rm -r $workdir/case$casenr
+rm -r $casedir
 
 ### Ending Chain of Evidence for acquire.sh
 

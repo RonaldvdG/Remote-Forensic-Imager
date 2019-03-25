@@ -184,6 +184,7 @@ date_acq_disconn=$(date +%Y-%m-%d && date +%H:%M:%S)
 ### Encrypting the image
 
 # ENCRYPTING COMMAND HERE
+clear
 echo -e $basic
 echo -e "$red Please $underline do not turn off the device $ec$red and do not press any key! $ec"
 echo "The acquisition is in process. You will be notified when the acquisition is done."
@@ -197,6 +198,7 @@ openssl enc -aes-256-cbc -salt -in dc3dd_$casenr.compressed.img.gz -out dc3dd_$c
 date_stop_enc=$(date +%Y-%m-%d && date +%H:%M:%S)
 
 
+clear
 echo -e $basic
 echo -e "$red Please $underline do not turn off the device $ec$red and do not press any key! $ec"
 echo "The acquisition is in process. You will be notified when the acquisition is done."
@@ -225,6 +227,8 @@ openssl rsautl -encrypt -inkey $certificate_loc -pubin -in $symkey -out symmetri
 
 #
 # openssl rsautl -encrypt -inkey case1234_pub.pem -pubin -in symmetric.bin -out ../encrypt/symmetric.enc
+clear
+echo -e $basic
 echo " "
 echo "============================================="
 echo "      Encrypting of the key is completed     "
@@ -242,7 +246,8 @@ echo "        Removing the unencrypted files       "
 echo "============================================="
 
 date_rm_info=$(date +%Y-%m-%d && date +%H:%M:%S)
-rm -r $workdir/after $workdir/before $workdir/between $casedir $policepoint/$casenr/dc3dd_$casenr.compressed.img.gz
+rm -r $workdir/after $workdir/before $workdir/between $policepoint/$casenr/dc3dd_$casenr.compressed.img.gz
+sleep 3
 
 ### Beginning Chain of Evidence
 
