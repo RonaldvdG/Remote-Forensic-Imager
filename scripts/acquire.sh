@@ -5,6 +5,7 @@ workdir=$(</workdir)
 vardir=$workdir/vars
 username=$(whoami)
 fullname=$(<$vardir/fullname)
+officerid=$(<$vardir/officerid)
 certdir=$(<$vardir/certdir)
 certificate=$(<$vardir/certificate)
 certificate_loc=$certdir$certificate
@@ -42,6 +43,7 @@ basic=" \n
  Work Directory :    $workdir \n
  Username       :    $username \n
  Officer	:    $fullname \n
+ Officer ID	:    $officerid \n
  Case number	:    $casenr \n
  Acquired Disk  :    $acquireddisk \n
  Police Disk    :    $policedisk \n
@@ -269,12 +271,18 @@ Encrypting the image was done at: $date_stop_enc \n
 The unencrypted files are removed at: $date_rm_info \n
 \n \n \n
 ####################################################### \n
-End of Chain of Evidence for case: $casenr \n
+End of Chain of Evidence for case: $casenr \n \n \n
 "
 
 echo -e $coe >> $casedir/Chain_of_Evidence.txt
 
 ### Ending Chain of Evidence for acquire.sh
+
+### Encrytping the CoE
+
+sha256sum $casedir/Chain_of_Evidence.txt > $policepoint/$casenr/Chain_of_Evidence.txt.sha256
+openssl enc -aes-256-cbc -salt -in $casedir/Chain_of_Evidence.txt -out $policepoint/$casenr/Chain_of_Evidence.txt.enc -pass file:$symkey
+openssl enc -aes-256-cbc -salt -in $policepoint/$casenr/Chain_of_Evidence.txt.sha256 -out $policepoint/$casenr/Chain_of_Evidence.txt.sha256.enc -pass file:$symkey
 
 sleep 3
 ### Begin script for sending the files over the network

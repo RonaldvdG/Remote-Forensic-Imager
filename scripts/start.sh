@@ -45,6 +45,7 @@ echo -e "Before the acquisition can start, some information has to be \nfilled i
 ## Start collecting information
 
 read -p "What is your full name: " fullname
+read -p "What is your Officer ID: " officerid
 read -p "What is the case number: " casenr
 read -p "What is the evidence number of the disk: " evidencenr
 echo	"Is the following date correct?"
@@ -74,6 +75,7 @@ read -p "what is the harddisk model: " hddmodel
 echo "Please verify the information: "
 
 echo -e "Your name is: $green $fullname$ec"
+echo -e "Your Officer ID is: $green $officerid$ec"
 echo -e "The case number is: $green $casenr $ec"
 echo -e "The evidence number is: $green $evidencenr $ec"
 echo -e "Today the date is: $green $curdate $ec"
@@ -106,6 +108,7 @@ fi
 vardir=$workdir/vars
 
 echo $fullname > $vardir/fullname
+echo $officerid > $vardir/officerid
 echo $casenr > $vardir/casenr
 echo $evidencenr > $vardir/evidencenr
 echo $hddvendor > $vardir/hddvendor
@@ -125,6 +128,7 @@ coe="Chain of Evidence for case: $casenr \n
 ############################################# \n
 \n
 Responsible officer: $fullname \n
+Officer id: $officerid \n
 Case: $casenr \n
 Evidence number: $evidencenr \n
 Acquisition initiated: $curdate $curtime \n
@@ -144,7 +148,7 @@ echo -e $coe > $casedir/Chain_of_Evidence.txt
 ## Generating symmetric key
 
 echo "A symmetric key will be generated"
-openssl rand -base64 32 > $casedir/symmetric.bin
+openssl rand 256 > $casedir/symmetric.bin
 sleep 2
 
 if [ -f $casedir/symmetric.bin ]

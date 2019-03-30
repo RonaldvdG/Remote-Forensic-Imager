@@ -5,14 +5,15 @@ workdir=$(</workdir)
 vardir=$workdir/vars
 username=$(whoami)
 fullname=$(<$vardir/fullname)
+officerid=$(<$vardir/officerid)
 certdir=$(<$vardir/certdir)
 certificate=$(<$vardir/certificate)
 certificate_loc=$certdir$certificate
 casenr=$(<$vardir/casenr)
 casedir=$workdir/case$casenr
 evidencenr=$(<$vardir/evidencenr)
-acquireddisk=$(<$vardir/acquireddisk)
-policedisk=$(<$vardir/policedisk)
+acquireddisk="\e[31mUnknown!\e[0m"
+policedisk="\e[31mUnknown!\e[0m"
 
 remserver=1.2.3.4
 remuser=username
@@ -25,6 +26,7 @@ basic=" \n
  Work Directory :    $workdir \n
  Username       :    $username \n
  Officer        :    $fullname \n
+ Officer ID	:    $officerid \n
  Case number    :    $casenr \n
  Acquired Disk  :    $acquireddisk \n
  Police Disk    :    $policedisk \n
@@ -53,21 +55,6 @@ scp -r $workdir/policedisk/$casenr $remuser@$remserver:$remfolder
 date_stop_trans=$(date +%Y-%m-%d && date +%H:%M:%S)
 
 ### Beginning Chain of Evidence
-
-coe="###### Transportation part starts here ###### \n
-\n
-The following files were transported: \n
-$files \n
-\n \n
-The transportation started at: $date_start_trans \n
-The transportation was finished at: $date_stop_trans \n
-\n
-"
-
-echo -e $coe >> $casedir/Chain_of_Evidence.txt
-
-sha256sum $casedir/Chain_of_Evidence.txt > $casedir/Chain_of_Evidence.txt.sha256
-scp $casedir/Chain_of_Evidence* $remuser@$remserver:$remfolder/$casenr
 
 rm -r $casedir
 
