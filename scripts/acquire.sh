@@ -161,7 +161,7 @@ echo "The imaging process is started."
 echo "Please wait..."
 echo -e "$blink ... $ec"
 date_start_img=$(date +%Y-%m-%d && date +%H:%M:%S)
-dc3dd if=$acquireddisk ssz=4096 cnt=2097152 hash=sha256 log=dc3dd_$casenr.compressed.img.gz.sha256 | gzip -1 > dc3dd_$casenr.compressed.img.gz
+dc3dd if=$acquireddisk hash=sha256 log=dc3dd_$casenr.compressed.img.gz.sha256 | gzip -1 > dc3dd_$casenr.compressed.img.gz
 date_stop_img=$(date +%Y-%m-%d && date +%H:%M:%S)
 
 echo "============================================="
