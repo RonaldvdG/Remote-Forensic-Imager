@@ -148,7 +148,7 @@ echo -e $coe > $casedir/Chain_of_Evidence.txt
 ## Generating symmetric key
 
 echo "A symmetric key will be generated"
-openssl rand 32 > $casedir/symmetric.bin
+openssl rand -base64 32 > $casedir/symmetric.bin
 sleep 2
 
 if [ -f $casedir/symmetric.bin ]
